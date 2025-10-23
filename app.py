@@ -33,52 +33,67 @@ st.subheader("CONTROL POR VOZ")
 
 st.markdown("""
     <style>
-    /* Fondo degradado */
+    /* Fondo animado tipo gradiente en movimiento */
+    @keyframes gradientBG {
+        0% {background-position: 0% 50%;}
+        50% {background-position: 100% 50%;}
+        100% {background-position: 0% 50%;}
+    }
     .stApp {
-        background: linear-gradient(135deg, #f0f8ff, #e6e6fa);
+        background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
         font-family: 'Segoe UI', sans-serif;
-        color: #2d2d2d;
     }
 
-    /* Títulos con sombra */
+    /* Títulos grandes y con sombra */
     h1, h2 {
-        color: #4b0082;
-        text-shadow: 1px 1px 5px rgba(75, 0, 130, 0.2);
+        color: #6a00f4;
+        text-shadow: 2px 2px 8px rgba(160, 80, 255, 0.5);
+        text-align: center;
     }
 
-    /* Botón Bokeh */
+    /* Botón con animación pulsante */
     button {
-        background: linear-gradient(90deg, #ff7f50, #ff6347);
+        background: linear-gradient(90deg, #ff6f91, #ff9671);
         color: white !important;
-        border-radius: 12px;
-        font-weight: bold;
-        transition: 0.3s ease;
+        border-radius: 16px;
+        font-size: 18px;
+        font-weight: 700;
+        transition: transform 0.2s, box-shadow 0.2s;
     }
     button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(255, 99, 71, 0.4);
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(255, 105, 180, 0.5);
     }
 
-    /* Imagen centrada */
+    /* Imagen centrada con borde redondeado y sombra */
     [data-testid="stImage"] {
         display: flex;
         justify-content: center;
     }
+    [data-testid="stImage"] img {
+        border-radius: 20px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
 
-    /* Texto explicativo */
-    p, label, span {
-        font-size: 16px;
-        color: #333;
+    /* Texto instructivo centrado y más grande */
+    p, label, span, h3 {
+        font-size: 18px;
+        color: #2d2d2d;
+        text-align: center;
     }
     </style>
 """, unsafe_allow_html=True)
 
 image = Image.open('voice_ctrl.jpg')
+st.image(image, width=350)  # Imagen centrada y más grande
 
-st.image(image, width=300)
+# Texto instructivo visible y centrado
+st.markdown("<h3 style='text-align:center; color:#ff4d6d;'>Pulsa el botón y habla para enviar tu comando 🚀</h3>", unsafe_allow_html=True)
 
-st.markdown("<h3 style='text-align:center; color:#4b0082;'>🎤 Pulsa el botón y habla para enviar tu comando</h3>", unsafe_allow_html=True)
-
+stt_status = st.empty()  # Esto crea un lugar vacío para actualizar el estado
+stt_status.markdown("🎤 Esperando tu comando...")
 stt_button = Button(label=" Inicio ", width=200)
 
 stt_button.js_on_event("button_click", CustomJS(code="""
