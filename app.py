@@ -31,14 +31,53 @@ client1.on_message = on_message
 st.title("INTERFACES MULTIMODALES")
 st.subheader("CONTROL POR VOZ")
 
+st.markdown("""
+    <style>
+    /* Fondo degradado */
+    .stApp {
+        background: linear-gradient(135deg, #f0f8ff, #e6e6fa);
+        font-family: 'Segoe UI', sans-serif;
+        color: #2d2d2d;
+    }
+
+    /* Títulos con sombra */
+    h1, h2 {
+        color: #4b0082;
+        text-shadow: 1px 1px 5px rgba(75, 0, 130, 0.2);
+    }
+
+    /* Botón Bokeh */
+    button {
+        background: linear-gradient(90deg, #ff7f50, #ff6347);
+        color: white !important;
+        border-radius: 12px;
+        font-weight: bold;
+        transition: 0.3s ease;
+    }
+    button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(255, 99, 71, 0.4);
+    }
+
+    /* Imagen centrada */
+    [data-testid="stImage"] {
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Texto explicativo */
+    p, label, span {
+        font-size: 16px;
+        color: #333;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 image = Image.open('voice_ctrl.jpg')
 
-st.image(image, width=200)
+st.image(image, width=300)
 
-
-
-
-st.write("Toca el Botón y habla ")
+st.markdown("<h3 style='text-align:center; color:#4b0082;'>🎤 Pulsa el botón y habla para enviar tu comando</h3>", unsafe_allow_html=True)
 
 stt_button = Button(label=" Inicio ", width=200)
 
