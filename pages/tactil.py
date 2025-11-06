@@ -86,9 +86,9 @@ def on_message(client, userdata, message):
     st.write(message_received)
 
 # --- Configuración MQTT ---
-broker = "157.230.214.127"
+broker = "broker.mqttdashboard.com"
 port = 1883
-client1 = paho.Client("GIT-HUB")
+client1 = paho.Client("majosofi")
 client1.on_message = on_message
 
 # --- Interfaz principal ---
@@ -100,11 +100,11 @@ st.divider()
 # --- Botón ON ---
 if st.button('🟢 ENCENDER (ON)', use_container_width=True):
     act1 = "ON"
-    client1 = paho.Client("GIT-HUB")                           
+    client1 = paho.Client("majosofi")                           
     client1.on_publish = on_publish                          
     client1.connect(broker, port)  
     message = json.dumps({"Act1": act1})
-    ret = client1.publish("cmqtt_s", message)
+    ret = client1.publish("mensajeproyecto", message)
     st.success("Comando **ON** enviado correctamente.")
 else:
     st.write('')
@@ -112,11 +112,11 @@ else:
 # --- Botón OFF ---
 if st.button('🔴 APAGAR (OFF)', use_container_width=True):
     act1 = "OFF"
-    client1 = paho.Client("GIT-HUB")                           
+    client1 = paho.Client("majosofi")                           
     client1.on_publish = on_publish                          
     client1.connect(broker, port)  
     message = json.dumps({"Act1": act1})
-    ret = client1.publish("cmqtt_s", message)
+    ret = client1.publish("mensajeproyecto", message)
     st.error("Comando **OFF** enviado correctamente.")
 else:
     st.write('')
@@ -129,11 +129,11 @@ st.write(f'Valor actual seleccionado: **{values}**')
 
 # --- Botón para enviar valor ---
 if st.button('📤 Enviar Valor Analógico', use_container_width=True):
-    client1 = paho.Client("GIT-HUB")                           
+    client1 = paho.Client("majosofi")                           
     client1.on_publish = on_publish                          
     client1.connect(broker, port)   
     message = json.dumps({"Analog": float(values)})
-    ret = client1.publish("cmqtt_a", message)
+    ret = client1.publish("mensajeproyecto", message)
     st.info(f"Valor analógico **{values}** enviado correctamente.")
 else:
     st.write('')
